@@ -28,9 +28,17 @@ export default new Router({
 			]
 		},
 		{
-			path: '/user/:type',
+			path: '/user',
 			name: 'User',
-			component: User
+			component: User,
+			redirect: '/user/login',
+			children: [
+				{
+					path: ':type',
+					name: 'User',
+					component: User
+				}
+			]
 		}
 	]
 })
