@@ -237,10 +237,10 @@
 				if (this.form.username && this.form.email && this.VerificationCode && this.form.password && this.form.repassword && this.VerificationCode) {
 					this.Axios.post('/users/retrieve-password',{
 						"Username": self.form.username,
-						"EmailAddress": self.form.EmailAddress,
+						"EmailAddress": self.form.email,
 						"password": self.form.password,
 						"repassword": self.form.repassword,
-						"verificationCode": this.VerificationCode
+						"verificationCode": self.VerificationCode
 					}).then(res=>{
 						console.log(res)
 					}).catch(err=>{

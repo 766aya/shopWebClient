@@ -40,13 +40,14 @@ export default {
   },
   watch: {
     num(newVal) {
-      if (newVal > this.max) {
+      this.num = parseInt(newVal)
+      if (this.num > this.max) {
         this.num = this.max
         this.$emit('counter', this.num)
-      } else if(newVal < this.min) {
+      } else if(this.num < this.min) {
         this.num = this.min
         this.$emit('counter', this.num)
-      } else if(typeof(newVal) == 'number') {
+      } else if(typeof(this.num) == 'number') {
         this.$emit('counter', newVal)
       } else {
         this.num = 0
