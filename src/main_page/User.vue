@@ -105,7 +105,7 @@
 </template>
 
 <script>
-	import { setItem } from '@/components/localstrong'
+	import { setItemLocal, setItemSession } from '@/components/localstrong'
 	export default {
 		name: 'User',
 		data () {
@@ -135,12 +135,16 @@
 			let routerType = this.$route.params.type
 			if (routerType == 'login') {
 				this.form.title = 'Login'
+				this.userChange(0)
 			} else if(routerType == 'register') {
 				this.form.title = 'register'
+				this.userChange(1)
 			} else if(routerType == 'retrieve') {
 				this.form.title="Retrieve The Password";
+				this.userChange(2)
 			} else {
 				this.form.title = 'Login'
+				this.userChange(0)
 			}
 		},
 		methods: {
@@ -188,7 +192,7 @@
 				// Axios请求
 				let self = this;
 				if(self.form.username && self.form.password && self.form.email && self.form.telphoneNumber) {
-					self.Axios.post('/users', {
+					self.Axios.post('/users/register', {
 						'Username': self.form.username,
 						'Password': self.form.password,
 						'EmailAddress': self.form.email,
@@ -210,16 +214,16 @@
 			Login () {
 				let self = this;
 				if(this.form.username && this.form.password){
-					self.Axios.get('/users', {
-						params: {
-							"Username": self.form.username,
-							'Password': self.form.password
-						}
+					self.Axios.post('/users/login', {
+						"Username": self.form.username,
+						'Password': self.form.password
 					}).then(res=>{
 						if (res.data.status == 0 && res.status == 200) {
 							this.msg_success('登陆成功', res.data.msg)
 							if (self.form.checked) {
-								setItem('username', self.form.username)
+								setItemLocal('username', self.form.username)
+							} else {
+								setItemSession('username', self.form.username)
 							}
 							this.reform()
 						} else {
@@ -242,9 +246,13 @@
 						"repassword": self.form.repassword,
 						"verificationCode": self.VerificationCode
 					}).then(res=>{
-						console.log(res)
+						if (res.status == 200 && res.data.status == 0) {
+							this.msg_success('密码修改成功', "retrieve the password is success")
+						} else {
+							this.msg_error('密码修改失败', "retrieve the password is error")
+						}
 					}).catch(err=>{
-						console.log(err)
+						this.msg_error('密码修改失败', "网络错误，请求发起失败或服务器拒绝访问！")
 					})
 				} else {
 					this.msg_warning('注意', "用户名、邮箱和验证码不能为空！")

@@ -17,7 +17,7 @@ export default new Router({
 			component: HomePage,
 			children: [
 				{
-					path: '',
+					path: '*',
 					name: 'GoodsList',
 					component: GoodsList,
 				}, {
@@ -29,7 +29,6 @@ export default new Router({
 		},
 		{
 			path: '/user',
-			name: 'User',
 			component: User,
 			redirect: '/user/login',
 			children: [

@@ -126,7 +126,6 @@
 					this.disPrev = true;
 					this.disNext = true;
 				}else if (this.page <= 1) {
-					console.log('2')
 					this.disPrev = true;
 					this.disNext = false;
 				}else if(this.page >= this.maxpage) {

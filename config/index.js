@@ -11,6 +11,14 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
+        // "/goods": {
+        //     target: "http://212.64.17.113:3000",
+        //     changeOrigin:true,
+        // },
+        // "/users": {
+        //     target: "http://212.64.17.113:3000",
+        //     changeOrigin:true,
+        // }
         "/goods": {
             target: "http://127.0.0.1:3000",
             changeOrigin:true,

@@ -15,7 +15,7 @@
 	import Footer from '@/components/Footer.vue'
 
 	export default {
-		name: 'App',
+		name: 'HomePage',
 		components: {
 			Header,
 			Bread,
