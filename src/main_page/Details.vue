@@ -25,13 +25,28 @@
 						<div class="tips"><a href="" class="yhq">领券</a></div>
 					</div>
 				</div>
+				<div class="xl">
+					<span class="f-l">月销量 <i class="red">{{yxl}}</i> 件</span>
+				</div>
+				<div class="buy-number">
+					<span class="f-l text">购买数量：</span><Counter class="f-l" :min="1" :max="100" @counter="changeNumber"></Counter>
+				</div>
+				<div class="btn-group">
+					<a class="btn buy">立即购买</a>
+					<a class="btn addcar">加入购物车</a>
+				</div>
 			</div>
+		</div>
+		<div id="content">
+			
 		</div>
 	</div>
 </template>
 
 <script>
 	import HeaderImgs from '@/components/DetailsHeaderImgs'
+	import Counter from '@/components/Counter'
+
 	export default {
 		name: 'Details',
 		data() {
@@ -43,11 +58,19 @@
 				parductPrice: '',
 				productDescription: '',
 				cxtext: 'biubiubiu',
-				hdDescription: '满20包邮，满额送礼到2018-11-20 00:00:00结束'
+				hdDescription: '满20包邮，满额送礼到2018-11-20 00:00:00结束',
+				PurchaseQuantity: 1,
+				yxl: 0,
 			}
 		},
 		components: {
-			HeaderImgs
+			HeaderImgs,
+			Counter
+		},
+		methods: {
+			changeNumber(val) {
+				this.PurchaseQuantity = this.val
+			}
 		}
 	}
 </script>
@@ -190,7 +213,63 @@
 							clear: both;
 						}
 					}
+					.xl {
+						display: block;
+						padding: 40px 30px;
+						line-height: 40px;
+						clear: both;
+						width: 100px;
+						margin: 0 auto;
+						.red {
+							color: #FF0036;
+							font-weight: bold;
+						}
+					}
+					.buy-number {
+						width: 250px;
+						height: 40px;
+						line-height: 40px;
+						margin: 40px auto;
+						padding: 0px 30px;
+						clear: both;
+					}
+					.f-l {
+						float: left;
+					}
+					.btn-group {
+						height: 40px;
+						width: 324px;
+						padding: 0px 20%;
+						margin: 0 auto;
+						clear: both;
+						.btn {
+							display: block;
+							width: 150px;
+							height: 40px;
+							line-height: 40px;
+							border: 1px solid #FF0036;
+							text-align: center;
+							float: left;
+							cursor: pointer;
+							&:last-child {
+								margin-left: 20px;
+							}
+							&::selection {
+								background-color: none;
+							}
+						}
+						.buy {
+							background-color: #FFEDED;
+							color: #FF0036;
+						}
+					}
 				}
+			}
+			#content {
+				width: 750px;
+				height: 30px;
+				margin: 15px auto;
+				background-color: #333333;
 			}
 		}
 	}
