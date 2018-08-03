@@ -17,7 +17,7 @@ export default new Router({
 			component: HomePage,
 			children: [
 				{
-					path: '*',
+					path: '/',
 					name: 'GoodsList',
 					component: GoodsList,
 				}, {

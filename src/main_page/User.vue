@@ -105,7 +105,13 @@
 </template>
 
 <script>
-	import { setItemLocal, setItemSession } from '@/components/localstrong'
+	import {
+		setItemSession, 
+		getItemSession, 
+		setItemLocal, 
+		getItemLocal,
+	} from '@/components/localstrong'
+
 	export default {
 		name: 'User',
 		data () {
@@ -132,19 +138,35 @@
 			}
 		},
 		created() {
-			let routerType = this.$route.params.type
-			if (routerType == 'login') {
-				this.form.title = 'Login'
-				this.userChange(0)
-			} else if(routerType == 'register') {
-				this.form.title = 'register'
-				this.userChange(1)
-			} else if(routerType == 'retrieve') {
-				this.form.title="Retrieve The Password";
-				this.userChange(2)
-			} else {
-				this.form.title = 'Login'
-				this.userChange(0)
+			let usernameSession = getItemSession('username');
+			let usernameLocal = getItemLocal('username');
+			console.log(usernameLocal, usernameSession)
+			if (usernameLocal && usernameSession) {
+				console.log(0)
+				delItemLocal('username')
+				this.$router.push({name: 'GoodsList'})
+			} else if(usernameSession) {
+				console.log(1)
+				this.$router.push({name: 'GoodsList'})
+			} else if(usernameLocal) {
+				console.log(2)
+				this.$router.push({name: 'GoodsList'})
+			}else {
+				let routerType = this.$route.params.type
+				console.log(3)
+				if (routerType == 'login') {
+					this.form.title = 'Login'
+					this.userChange(0)
+				} else if(routerType == 'register') {
+					this.form.title = 'register'
+					this.userChange(1)
+				} else if(routerType == 'retrieve') {
+					this.form.title="Retrieve The Password";
+					this.userChange(2)
+				} else {
+					this.form.title = 'Login'
+					this.userChange(0)
+				}
 			}
 		},
 		methods: {

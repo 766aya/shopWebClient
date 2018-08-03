@@ -1,5 +1,5 @@
 <template>
-	<div id="header" class="fixed" @keyup.13="window.alert(123)">
+	<div id="header" class="fixed">
 		<div id="logo"><a href="/">LOGO</a></div>
 		<div id="header-control-group">
 			<div class="header-box" v-if="login == false"><a class="text" @click="loginShow = !loginShow">用户登陆</a></div>
@@ -54,20 +54,16 @@
 			let usernameLocal = getItemLocal('username');
 			let usernameSession = getItemSession('username');
 			if (usernameLocal && usernameSession) {
-				console.log(0)
 				delItemLocal('username')
 				this.login = true;
 				this.username = usernameSession;
 			} else if(usernameSession) {
-				console.log(1)
 				this.login = true;
 				this.username = usernameSession;
 			} else if(usernameLocal) {
-				console.log(2)
 				this.login = true;
 				this.username = usernameLocal;
 			} else {
-				console.log(3)
 				this.login = false;
 			}
 		},
