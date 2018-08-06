@@ -320,7 +320,7 @@
 		align-items: center;
 		height: 100vh;
 		width: 100vw;
-		background: url('/static/city02.png') center center;
+		background: url('/static/city02.jpg') center center;
 		background-size: auto 100%;
 		animation: BackgroundMove 5s;
 		animation-iteration-count: infinite;
