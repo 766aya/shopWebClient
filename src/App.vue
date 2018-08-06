@@ -14,5 +14,5 @@
 </script>
 
 <style lang="scss" type="text/css">
-
+	/* this is app css type is scc */
 </style>
