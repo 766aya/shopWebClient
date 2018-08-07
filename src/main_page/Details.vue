@@ -5,6 +5,11 @@
 				<header-imgs></header-imgs>
 			</div>
 			<div class="parametes">
+				<div class="choose-list">
+					<div>月销量</div>
+					<div>累计评价</div>
+					<div>产品参数</div>
+				</div>
 				<h1 class="title" v-text="productName"></h1>
 				<h2 class="description">xxxxxxxxxxxxxxxxxxxxx</h2>
 				<div class="price">
@@ -25,9 +30,9 @@
 						<div class="tips"><a href="" class="yhq">领券</a></div>
 					</div>
 				</div>
-				<div class="xl">
+				<!-- <div class="xl">
 					<span class="f-l">月销量 <i class="red">{{yxl}}</i> 件</span>
-				</div>
+				</div> -->
 				<div class="buy-number">
 					<span class="f-l text">购买数量：</span><Counter class="f-l" :min="1" :max="100" @counter="changeNumber"></Counter>
 				</div>
@@ -109,6 +114,7 @@
 					}
 				}
 				.parametes {
+					position: relative;
 					float: left;
 					padding: 90px;
 					&:after {
@@ -213,6 +219,24 @@
 							clear: both;
 						}
 					}
+					.choose-list{
+						    position: absolute;
+							top: 0;
+							right: 90px;
+							display: flex;
+							flex-direction: row;
+							padding: 10px 0;
+							div{
+								padding: 0 10px;
+								border-right: 2px solid orangered;
+								font-size: 14px;
+								color: #666;
+								&:last-child{
+									margin: 0;
+									border: none
+								}
+							}
+						}
 					.xl {
 						display: block;
 						padding: 40px 30px;
