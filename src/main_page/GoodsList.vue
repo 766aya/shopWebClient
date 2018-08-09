@@ -1,70 +1,73 @@
 <template>
-	<div id="goodslist">
-		<!-- 遮罩层和侧边栏 -->
-		<div id="overLayFlag" :class="{'is-show': OverLayFlagIsShow, 'sidebar-show': SidebarShow}" @click="OverLayFlagIsShow = !OverLayFlagIsShow"></div>
-		<div id="sidebar" :class="{'is-show': OverLayFlagIsShow}">
-			<div class="title">价格过滤</div>
-			<ul class="price-filter">
-				<li>
-					<a @click="PFilter('all')" href="javascript:;" :class="{'is-active': priceChecked == 'all'}">所有商品</a>
-				</li>
-				<li v-for="(item, index) in priceFilter" :key="index">
-					<a @click="PFilter(index)" href="javascript:;" :class="{'is-active': priceChecked == index}" v-text="`${item.startprice}-${item.endprice}`"></a>
-				</li>
-			</ul>
-		</div>
-		<div class="container header">
-			<div class="header-main">
-				<p class="text">SortBy:</p>
-				<a class="text link" href="javascript:;" :class="{'is-active': IsActive==0}" @click="sort(0)">Default</a>
-				<a class="text link" href="javascript:;" :class="{'is-active': IsActive==1}" @click="sort(1)">
-					Price
-					<i class="iconfont" :class="{'icon-paixu-shengxu': isSortPrice, 'icon-paixu-jiangxu': !isSortPrice}"></i>
-				</a>
-				<a class="text link is-show" @click="OverLayFlagIsShow = !OverLayFlagIsShow">ShowPriceFilter</a>
-			</div>
-		</div>
-		<div class="container main">
-			<div class="lside">
-				<div class="title">价格过滤</div>
-				<ul class="price-filter">
-					<li>
-						<a @click="PFilter('all')" href="javascript:;" :class="{'is-active': priceChecked == 'all'}">所有商品</a>
-					</li>
-					<li v-for="(item, index) in priceFilter" :key="index">
-						<a @click="PFilter(index)" href="javascript:;" :class="{'is-active': priceChecked == index}" v-text="`${item.startprice}元-${item.endprice}元`"></a>
-					</li>
-				</ul>
-			</div>
-			<div class="rside">
-				<a :href="'/Goods/'+item.productId" class="item" v-for="item in GoodsList" :id="'Good'+item.productId" :key="item.productId">
-					<div class="img-box">
-						<img class="img" :alt="item.productName" v-lazy="'/static/'+item.productImg" :src="'/static/'+item.productImg">
-					</div>
-					<h2 class="title" v-text="item.productName"></h2>
-					<p class="description" v-text="test(item.productDescription)"></p>
-					<p class="price" v-text="`￥${item.salePrice}元`"></p>
-					<a class="shopcar iconfont icon-gouwuche">
-						<i>加入购物车</i>
-					</a>
-				</a>
-				<div v-if="GoodsList == ''" class="warning-text">
-					哦豁，卖完了！
-				</div>
-				<div class="toggle-page">
-					<a @click="TogglePage('prev')" :class="{'dis-page': disPrev}">上一页</a>
-					<span>
-						<i>第</i><input type="text" v-model="page" @keyup.enter="getGoodsList">
-						<i>页</i>
-					</span>
-					<a @click="TogglePage('next')" :class="{'dis-page': disNext}">下一页</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="goodslist">
+        <!-- 遮罩层和侧边栏 -->
+        <div id="overLayFlag" :class="{'is-show': OverLayFlagIsShow, 'sidebar-show': SidebarShow}" @click="OverLayFlagIsShow = !OverLayFlagIsShow"></div>
+        <div id="sidebar" :class="{'is-show': OverLayFlagIsShow}">
+            <div class="title">价格过滤</div>
+            <ul class="price-filter">
+                <li>
+                    <a @click="PFilter('all')" href="javascript:;" :class="{'is-active': priceChecked == 'all'}">所有商品</a>
+                </li>
+                <li v-for="(item, index) in priceFilter" :key="index">
+                    <a @click="PFilter(index)" href="javascript:;" :class="{'is-active': priceChecked == index}" v-text="`${item.startprice}-${item.endprice}`"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="container header">
+            <div class="header-main">
+                <p class="text">SortBy:</p>
+                <a class="text link" href="javascript:;" :class="{'is-active': IsActive==0}" @click="sort(0)">Default</a>
+                <a class="text link" href="javascript:;" :class="{'is-active': IsActive==1}" @click="sort(1)">
+                    Price
+                    <i class="iconfont" :class="{'icon-paixu-shengxu': isSortPrice, 'icon-paixu-jiangxu': !isSortPrice}"></i>
+                </a>
+                <a class="text link is-show" @click="OverLayFlagIsShow = !OverLayFlagIsShow">ShowPriceFilter</a>
+            </div>
+        </div>
+        <div class="container main">
+            <div class="lside">
+                <div class="title">价格过滤</div>
+                <ul class="price-filter">
+                    <li>
+                        <a @click="PFilter('all')" href="javascript:;" :class="{'is-active': priceChecked == 'all'}">所有商品</a>
+                    </li>
+                    <li v-for="(item, index) in priceFilter" :key="index">
+                        <a @click="PFilter(index)" href="javascript:;" :class="{'is-active': priceChecked == index}" v-text="`${item.startprice}元-${item.endprice}元`"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="rside">
+                <a :href="'/Goods/'+item.productId" class="item" v-for="item in GoodsList" :id="'Good'+item.productId" :key="item.productId">
+                    <div class="img-box">
+                        <img class="img" :alt="item.productName" v-lazy="'/static/'+item.productImg" :src="'/static/'+item.productImg">
+                    </div>
+                    <h2 class="title" v-text="item.productName"></h2>
+                    <p class="description" v-text="test(item.productDescription)"></p>
+                    <p class="price" v-text="`￥${item.salePrice}元`"></p>
+                    <a class="shopcar iconfont icon-gouwuche" @click.stop.prevent="addShop(item.productId)">
+                        <i>加入购物车</i>
+                    </a>
+                </a>
+                <div v-if="GoodsList == ''" class="warning-text">
+                    哦豁，卖完了！
+                </div>
+                <div class="toggle-page">
+                    <a @click="TogglePage('prev')" :class="{'dis-page': disPrev}">上一页</a>
+                    <span>
+                        <i>第</i><input type="text" v-model="page" @keyup.enter="getGoodsList">
+                        <i>页</i>
+                    </span>
+                    <a @click="TogglePage('next')" :class="{'dis-page': disNext}">下一页</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
+import { setItemLocal, getItemLocal } from "@/components/localstrong";
+import Vue from "vue";
+
 export default {
     name: "GoodsList",
     data() {
@@ -129,6 +132,11 @@ export default {
             this.onPage();
         }
     },
+    // computed: {
+    //     goods() {
+    //         return getItemLocal("goods");
+    //     }
+    // },
     methods: {
         PFilter(val) {
             this.priceChecked = val;
@@ -211,6 +219,38 @@ export default {
                 }
             }
             this.getGoodsList();
+        },
+        addShop(id) {
+            var goods = JSON.parse(getItemLocal("goods")); 
+            var list = [{ productId: id, num: 1 }];
+            //初始化
+            if (
+                goods == "" ||
+                goods == null ||
+                goods == undefined ||
+                goods == []
+            ) {
+                goods = list;
+                setItemLocal("goods", JSON.stringify(list));
+                return;
+            }
+            //长度
+            var len = goods.length;
+            var isNew = false
+            for (var i = 0; i < goods.length; i++) {
+                if (parseInt(goods[i].productId) === parseInt(id)) {
+                    goods[i].num = parseInt(goods[i].num) + 1;
+                    setItemLocal("goods", goods); 
+                    isNew = false;
+                    return false; 
+                } else {
+                    isNew = true;
+                }
+            }
+            if (isNew) {
+                Vue.set(goods, len, { productId: id, num: 1 }); //不能push 只能set
+            }
+            setItemLocal("goods", goods); 
         }
     }
 };
@@ -294,7 +334,7 @@ a:focus {
         height: 40px;
         width: 400px;
         margin: 0px auto;
-		padding: 10px 0 20px 0;
+        padding: 10px 0 20px 0;
         * {
             line-height: 40px;
             float: left;

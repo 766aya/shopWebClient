@@ -228,7 +228,7 @@
 							padding: 10px 0;
 							div{
 								padding: 0 10px;
-								border-right: 2px solid orangered;
+								border-right: 2px solid #f25807;
 								font-size: 14px;
 								color: #666;
 								&:last-child{

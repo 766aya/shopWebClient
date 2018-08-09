@@ -1,42 +1,44 @@
 <template>
-	<div id="header" class="fixed">
-		<div id="logo">
-			<a href="/">LOGO</a>
-		</div>
-		<div id="header-control-group">
-			<div class="header-box" v-if="login == false">
-				<a class="text" @click="loginShow = !loginShow">用户登陆</a>
-			</div>
-			<div class="header-box" v-if="login == true">
-				<!-- <img src="" alt=""> -->
-				<span v-text="username"></span>
-			</div>
-			<i class="header-box" style="cursor: default;">|</i>
-			<div class="header-box" v-if="login == false">
-				<router-link class="text" :to="{name: 'User', params: { type: 'register' }}">免费注册</router-link>
-			</div>
-			<div class="header-box" v-if="login == true">
-				<a class="text" @click="exit">退出</a>
-			</div>
-			<div class="header-box shopping-car">
-				<a class="text iconfont icon-gouwuche" href=""></a>
-			</div>
-		</div>
-		<el-dialog title="用户登录" :visible.sync="loginShow" width="500px" center>
-			<el-form :model="form" ref="form" label-width="80px" class="form-group">
-				<el-form-item label="用户名: " prop="username">
-					<el-input type="text" v-model="form.username" auto-complete="off"></el-input>
-				</el-form-item>
-				<el-form-item label="密码: " prop="password">
-					<el-input type="password" v-model="form.password" auto-complete="off"></el-input>
-				</el-form-item>
-			</el-form>
-			<div class="footer-btn">
-				<el-button type="primary" @click="submitForm">提交</el-button>
-				<el-button @click="loginShow = false">取消</el-button>
-			</div>
-		</el-dialog>
-	</div>
+    <div id="header" class="fixed">
+        <div id="logo">
+            <a href="/">LOGO</a>
+        </div>
+        <div id="header-control-group">
+            <div class="header-box" v-if="login == false">
+                <a class="text" @click="loginShow = !loginShow">用户登陆</a>
+            </div>
+            <div class="header-box" v-if="login == true">
+                <!-- <img src="" alt=""> -->
+                <span v-text="username"></span>
+            </div>
+            <i class="header-box" style="cursor: default;">|</i>
+            <div class="header-box" v-if="login == false">
+                <router-link class="text" :to="{name: 'User', params: { type: 'register' }}">免费注册</router-link>
+            </div>
+            <div class="header-box" v-if="login == true">
+                <a class="text" @click="exit">退出</a>
+            </div>
+            <div class="header-box shopping-car">
+                <a class="text iconfont icon-gouwuche" href="">
+                    <div v-if="shopCount != 0" class="shop-count">{{shopCount}}</div>
+                </a>
+            </div>
+        </div>
+        <el-dialog title="用户登录" :visible.sync="loginShow" width="500px" center>
+            <el-form :model="form" ref="form" label-width="80px" class="form-group">
+                <el-form-item label="用户名: " prop="username">
+                    <el-input type="text" v-model="form.username" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="密码: " prop="password">
+                    <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
+                </el-form-item>
+            </el-form>
+            <div class="footer-btn">
+                <el-button type="primary" @click="submitForm">提交</el-button>
+                <el-button @click="loginShow = false">取消</el-button>
+            </div>
+        </el-dialog>
+    </div>
 </template>
 
 <script>
@@ -62,6 +64,12 @@ export default {
             },
             username: ""
         };
+    },
+    computed: {
+        shopCount() {
+            var data = JSON.parse(getItemLocal("goods"))
+            return data.length;
+        }
     },
     created() {
         let usernameLocal = getItemLocal("username");
@@ -151,7 +159,21 @@ $animation-time: 0.3s;
         #header-control-group {
             margin-right: 20px;
             .shopping-car {
+                position: relative;
                 width: 55px;
+                .shop-count {
+                    position: absolute;
+                    top: 12px;
+                    right: 14px;
+                    width: 15px;
+                    height: 15px;
+                    line-height: 15px;
+                    padding: 2px;
+                    background-color: #e53935;
+                    color: #ffffff;
+                    font-size: 12px;
+                    border-radius: 50%;
+                }
             }
         }
     }
