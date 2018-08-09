@@ -3,7 +3,7 @@
     <a class="sup" @click="increment"
     @mouseover="()=>{this.isSelection=true; this.counter=true;}"
     @mouseleave="()=>{this.focus ? this.isSelection=true : this.isSelection=false; this.counter=false; }"
-    >+</a>
+    >-</a>
     <input type="text" v-model.number="num" :class="{ 'is-selction': isSelection }"
       @focus="()=>{this.isSelection=true; this.focus=true;}"
       @mouseover="()=>{this.isSelection=true}"
@@ -13,7 +13,7 @@
     <a class="sub" @click="decrement"
     @mouseover="()=>{this.isSelection=true; this.counter=true}"
     @mouseleave="()=>{this.focus ? this.isSelection=true : this.isSelection=false; this.counter=false; }"
-    >-</a>
+    >+</a>
   </div>
 </template>
 
@@ -40,6 +40,9 @@ export default {
   },
   watch: {
     num(newVal) {
+      if(isNaN(newVal)) {
+        this.num = this.min;
+      }
       this.num = parseInt(newVal)
       if (this.num > this.max) {
         this.num = this.max
@@ -56,10 +59,23 @@ export default {
   },
   methods: {
     increment() {
-      this.num++;
+      // if(isNaN(newVal)) {
+      //   console.log('-1 b')
+      //   this.num = this.min;
+      // } else {
+        console.log('-1 c')
+        this.num--;
+      // }
     },
     decrement() {
-      this.num--;
+      // if(isNaN(newVal)) {
+      //   console.log('+1 b')
+      //   this.num = this.min;
+      // } else {
+        console.log('+1 c')
+        this.num++;
+      // }
+      
     }
   },
 };
