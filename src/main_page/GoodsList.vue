@@ -67,6 +67,7 @@
 <script>
 import { setItemLocal, getItemLocal } from "@/components/localstrong";
 import Vue from "vue";
+import {mapState} from 'vuex'
 
 export default {
     name: "GoodsList",
@@ -132,11 +133,9 @@ export default {
             this.onPage();
         }
     },
-    // computed: {
-    //     goods() {
-    //         return getItemLocal("goods");
-    //     }
-    // },
+    computed: mapState({
+        goods: state => state.goods.goods
+    }),
     methods: {
         PFilter(val) {
             this.priceChecked = val;
@@ -221,26 +220,18 @@ export default {
             this.getGoodsList();
         },
         addShop(id) {
-            var goods = JSON.parse(getItemLocal("goods")); 
-            var list = [{ productId: id, num: 1 }];
+            var list = { productId: id, num: 1 };
             //初始化
-            if (
-                goods == "" ||
-                goods == null ||
-                goods == undefined ||
-                goods == []
-            ) {
-                goods = list;
-                setItemLocal("goods", JSON.stringify(list));
+            if (this.goods == "" ||this.goods == null ||this.goods == undefined ||this.goods == []) {
+                this.$store.commit('add', list)
                 return;
             }
             //长度
-            var len = goods.length;
+            var len = this.goods.length;
             var isNew = false
-            for (var i = 0; i < goods.length; i++) {
-                if (parseInt(goods[i].productId) === parseInt(id)) {
-                    goods[i].num = parseInt(goods[i].num) + 1;
-                    setItemLocal("goods", goods); 
+            for (var i = 0; i < this.goods.length; i++) {
+                if (parseInt(this.goods[i].productId) === parseInt(id)) {
+                    this.$store.commit('change', id)
                     isNew = false;
                     return false; 
                 } else {
@@ -248,9 +239,8 @@ export default {
                 }
             }
             if (isNew) {
-                Vue.set(goods, len, { productId: id, num: 1 }); //不能push 只能set
+                this.$store.commit('add', { productId: id, num: 1 })
             }
-            setItemLocal("goods", goods); 
         }
     }
 };

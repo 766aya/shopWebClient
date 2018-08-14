@@ -1,70 +1,54 @@
 <template>
-	<div id="Details">
-		<div class="header">
-			<div class="img">
-				<header-imgs></header-imgs>
-			</div>
-			<div class="parametes">
-				<div class="choose-list">
-					<div>月销量</div>
-					<div>累计评价</div>
-					<div>产品参数</div>
-				</div>
-				<h1 class="title" v-text="productName"></h1>
-				<h2 class="description">xxxxxxxxxxxxxxxxxxxxx</h2>
-				<div class="price">
-					<div class="price-main yb">
-						<div class="title">价格</div>
-						<div class="content">
-							<i v-text="'188.00'"></i>
-						</div>
-					</div>
-					<div class="price-main cx">
-						<div class="title">促销价</div>
-						<div class="content">9999</div>
-						<div class="tips" v-if="cxtext" v-text="cxtext"></div>
-					</div>
-					<div class="price-main hd">
-						<div class="title">优惠活动</div>
-						<div class="content description" v-text="hdDescription"></div>
-						<div class="tips">
-							<a href="" class="yhq">领券</a>
-						</div>
-					</div>
-				</div>
-				<!-- <div class="xl">
+    <div id="Details">
+        <div class="header">
+            <div class="img">
+                <header-imgs></header-imgs>
+            </div>
+            <div class="parametes">
+                <div class="choose-list">
+                    <div>月销量</div>
+                    <div>累计评价</div>
+                    <div>产品参数</div>
+                </div>
+                <h1 class="title" v-text="productName"></h1>
+                <h2 class="description">xxxxxxxxxxxxxxxxxxxxx</h2>
+                <div class="price">
+                    <div class="price-main yb">
+                        <div class="title">价格</div>
+                        <div class="content">
+                            <i v-text="'188.00'"></i>
+                        </div>
+                    </div>
+                    <div class="price-main cx">
+                        <div class="title">促销价</div>
+                        <div class="content">9999</div>
+                        <div class="tips" v-if="cxtext" v-text="cxtext"></div>
+                    </div>
+                    <div class="price-main hd">
+                        <div class="title">优惠活动</div>
+                        <div class="content description" v-text="hdDescription"></div>
+                        <div class="tips">
+                            <a href="" class="yhq">领券</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="xl">
 					<span class="f-l">月销量 <i class="red">{{yxl}}</i> 件</span>
 				</div> -->
-				<div class="buy-number">
-					<span class="f-l text">购买数量：</span>
-					<Counter class="f-l" :min="1" :max="100" @counter="changeNumber"></Counter>
-				</div>
-				<div class="btn-group">
-					<a class="btn buy">立即购买</a>
-					<a class="btn addcar">加入购物车</a>
-				</div>
-			</div>
-		</div>
-		<div id="content">
+                <div class="buy-number">
+                    <span class="f-l text">购买数量：</span>
+                    <Counter class="f-l" :min="1" :max="100" @counter="changeNumber"></Counter>
+                </div>
+                <div class="btn-group">
+                    <a class="btn buy">立即购买</a>
+                    <a class="btn addcar">加入购物车</a>
+                </div>
+            </div>
+        </div>
+        <div id="content">
 
-		</div>
-		<div class="box">
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="main"></div>
-			<div class="special"></div>
-		</div>
-	</div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -95,6 +79,9 @@ export default {
         changeNumber(val) {
             this.PurchaseQuantity = this.val;
         }
+    },
+    mounted() {
+        console.log(this.$route.params.parductId);
     }
 };
 </script>
@@ -107,28 +94,6 @@ $navbar-height: 121px;
 $header-height: 50px;
 $animation-time: 0.3s;
 $border-color-default: 1px solid #d5d5d5;
-.box{
-	position: relative;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	width: 450px;
-	border: 1px solid #999;
-	.main{
-		width: 80px;
-		height: 80px;
-		background: orange;
-		border: 1px solid #999;
-	}
-	.special{
-		position: absolute;
-		top: 162px;
-		left: 81px;
-		width: 60px;
-		height: 60px;
-		background: skyblue;
-	}
-}
 
 @media (min-width: 1200px) {
     #Details {

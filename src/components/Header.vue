@@ -8,7 +8,6 @@
                 <a class="text" @click="loginShow = !loginShow">用户登陆</a>
             </div>
             <div class="header-box" v-if="login == true">
-                <!-- <img src="" alt=""> -->
                 <span v-text="username"></span>
             </div>
             <i class="header-box" style="cursor: default;">|</i>
@@ -19,9 +18,11 @@
                 <a class="text" @click="exit">退出</a>
             </div>
             <div class="header-box shopping-car">
-                <a class="text iconfont icon-gouwuche" href="">
-                    <div v-if="shopCount != 0" class="shop-count">{{shopCount}}</div>
-                </a>
+                <router-link :to="{path: '/shopcar'}">
+                    <a class="text iconfont icon-gouwuche">
+                        <div v-if="count != 0" class="shop-count">{{count}}</div>
+                    </a>
+                </router-link>
             </div>
         </div>
         <el-dialog title="用户登录" :visible.sync="loginShow" width="500px" center>
@@ -52,6 +53,7 @@ import {
     delItemLocal,
     delAllItemLocal
 } from "@/components/localstrong";
+import { mapState } from "vuex";
 export default {
     name: "Header",
     data() {
@@ -65,12 +67,9 @@ export default {
             username: ""
         };
     },
-    computed: {
-        shopCount() {
-            var data = JSON.parse(getItemLocal("goods"))
-            return data.length;
-        }
-    },
+    computed: mapState({
+        count: state => state.goods.goods.length
+    }),
     created() {
         let usernameLocal = getItemLocal("username");
         let usernameSession = getItemSession("username");

@@ -2,7 +2,7 @@
 	<div id="HomePage">
 		<Header></Header>
 		<Bread class="bread">
-			<a class="active">商品列表</a>
+			<!-- <a class="active">商品列表</a> -->
 		</Bread>
 		<router-view/>
 		<Footer></Footer>
