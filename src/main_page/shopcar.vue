@@ -25,6 +25,23 @@
                 </template>
             </el-table-column>
         </el-table>
+        <div class="table-bottom">
+            <div class="bottom-left">
+                <div>
+                    <router-link :to="{path: '/'}" class="left">继续购物</router-link>
+                </div>
+                <div class="right">共
+                    <span class="count">{{total}}</span>件商品，已选择
+                    <span class="count">{{choosed}}</span>
+                </div>
+            </div>
+            <div class="bottom-right">
+                <div class="total">合计
+                    <span>{{money}}元</span>
+                </div>
+                <div class="clear">去结算</div>
+            </div>
+        </div>
     </section>
 </template>
 <script>
@@ -32,13 +49,16 @@ import Counter from "@/components/Counter";
 
 export default {
     name: "shopcar",
-    components:{
+    components: {
         Counter
     },
     data() {
         return {
             tableData: [],
-            PurchaseQuantity: ''
+            PurchaseQuantity: "",
+            total: 0,
+            choosed: 0,
+            money: 0
         };
     },
     methods: {
@@ -46,7 +66,7 @@ export default {
             console.log(val);
         },
         changeNumber(val) {
-            this.PurchaseQuantity = val
+            this.PurchaseQuantity = val;
         }
     }
 };
@@ -64,14 +84,68 @@ export default {
                 color: #ffffff;
             }
         }
-        .countBtn{
+        .countBtn {
             margin: 0 auto;
         }
     }
     .el-table td,
     .el-table th {
         color: #424242;
-        text-align: center
+        text-align: center;
+    }
+    .table-bottom {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 60%;
+        margin: 20px auto;
+        padding-left: 20px;
+        border: 1px solid #d2cfcf;
+        .bottom-left,
+        .bottom-right {
+            display: flex;
+            flex-direction: row;
+            height: 50px;
+            line-height: 50px;
+            color: #757575;
+            font-size: 14px;
+        }
+        .bottom-left {
+            .left {
+                padding-right: 10px;
+                height: 10px;
+                border-right: 1px solid #999;
+                color: #757575;
+                text-decoration: #ffffff;
+                &:hover {
+                    color: #ff670d;
+                }
+            }
+            .right {
+                padding-left: 10px;
+                .count {
+                    color: #ff670d;
+                    margin: 0 5px;
+                }
+            }
+        }
+        .bottom-right {
+            .total {
+                color: #ff670d;
+                margin: 0 5px;
+            }
+            .clear {
+                width: 80px;
+                height: 100%;
+                text-align: center;
+                background: #d2cfcf;
+                margin-left: 10px;
+            }
+            .disabled{
+                background: #ff670d;
+                color: #ffffff;
+            }
+        }
     }
 }
 </style>
